@@ -1,10 +1,23 @@
 import streamlit as st
 import os
-
-from gitdb.util import remove
 from openai import OpenAI
 from datetime import datetime
 import json
+
+st.set_page_config(page_title="AI聊天助手", layout="wide")
+
+if "authenticated" not in st.session_state:
+    pwd = st.text_input("请输入访问密码", type="password")
+    if pwd:
+        if pwd != "qq2479003032":
+            st.warning("密码错误，请重新输入")
+            st.stop()
+        else:
+            st.session_state["authenticated"] = True
+            st.success("验证成功，欢迎使用！")
+    else:
+        st.info("请输入访问密码以继续")
+        st.stop()
 
 
 st.set_page_config(
